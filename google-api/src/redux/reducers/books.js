@@ -13,7 +13,7 @@ export const BooksReducer = (state = defaultState, action) => {
                 ...state,
                 fetching: true,
             }
-        };
+        }
 
         case BOOKS_RECEIVED: {
             const { books } = action;
@@ -24,7 +24,7 @@ export const BooksReducer = (state = defaultState, action) => {
                 fetching: false,
                 received: true,
             }
-        };
+        }
 
         default:
             return state;

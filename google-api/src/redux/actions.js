@@ -8,3 +8,10 @@ export const GetBooks = (searchValue) => {
         searchValue
     }
 };
+
+export const BooksReceived = (books) => {
+    return {
+        type: BOOKS_RECEIVED,
+        books
+    }
+};
