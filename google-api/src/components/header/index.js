@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import Badge from '@material-ui/core/Badge';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const styles = {
     root: {
@@ -25,25 +27,26 @@ class Header extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const {
+            favoritesReducer: {
+                favorites
+            },
+            classes
+        } = this.props;
 
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
-                            Books
+                        <Typography variant="h6" color="inherit" className={classes.grow}>        
+                            <Link to="/" style={{textDecoration: 'none', color: '#FFF'}}>Books</Link>
                         </Typography>
                         <div>
-                            <IconButton
-                                aria-haspopup="true"
-                                onClick={() => {
-
-                                }}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
+                            <Link to="/favorites" style={{textDecoration: 'none', color: '#FFF'}}>
+                                <Badge badgeContent={favorites.length} color="secondary">
+                                    <FavoriteIcon />
+                                </Badge>
+                            </Link>
                         </div>
                     </Toolbar>
                 </AppBar>
@@ -56,4 +59,10 @@ Header.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+const mapStateToProps = (state) => {
+    return {
+        favoritesReducer: state.favoritesReducer,
+    }
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(Header));
