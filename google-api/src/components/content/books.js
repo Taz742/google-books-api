@@ -147,7 +147,11 @@ class Books extends React.Component {
                         style={{marginTop: 40, paddingBottom: 20}}
                     />
                 </div>
-                {this.state.searchValue === '' ?
+                {
+                    this.state.searchValue === '' ?
+                    <p>Please find a book</p>
+                    :
+                    books.length === 0 && !fetching ?
                     <p>Books is empty</p>
                     :
                     <React.Fragment>
