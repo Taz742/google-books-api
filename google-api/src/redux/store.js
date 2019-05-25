@@ -4,9 +4,11 @@ import sagas from './saga';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(reducers, compose(applyMiddleware(sagaMiddleware, logger)));
+export const createReduxStore = (preloadedState) => {
+    const sagaMiddleware = createSagaMiddleware();
+    const store = createStore(reducers, preloadedState, compose(applyMiddleware(sagaMiddleware, logger)));
 
-sagaMiddleware.run(sagas);
+    sagaMiddleware.run(sagas);
 
-export default store;
+    return store;
+};
